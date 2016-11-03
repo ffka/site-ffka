@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -ex
 
 HERE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd "$HERE"
