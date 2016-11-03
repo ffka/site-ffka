@@ -28,9 +28,8 @@ do
 done
 make dirclean
 
-git checkout master
-git pull
 git checkout "${GLUON_CHECKOUT}"
+git pull origin "${GLUON_CHECKOUT}"
 
 NEW_TARGETS="$(make 2>/dev/null | grep '^ [*] ' | cut -d' ' -f3)"
 for target in ${NEW_TARGETS}
