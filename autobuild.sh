@@ -10,9 +10,9 @@ export GLUON_PRIORITY="${GLUON_PRIORITY:-1}"
 
 eval $(make -s -f helper.mk)
 
-echo -e "GLUON_CHECKOUT: \033[32m${GLUON_CHECKOUT}\033[0m"
-echo -e "GLUON_BRANCH: \033[32m${GLUON_BRANCH}\033[0m"
-echo -e "GLUON_RELEASE: \033[32m${GLUON_RELEASE}\033[0m"
+echo -e "GLUON_CHECKOUT: ${GLUON_CHECKOUT}"
+echo -e "GLUON_BRANCH: ${GLUON_BRANCH}"
+echo -e "GLUON_RELEASE: ${GLUON_RELEASE}"
 
 cd ..
 
