@@ -218,19 +218,23 @@ GLUON_DIR505A1_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_PA
 GLUON_TLWDR4900_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_PACKAGES_STORAGE)
 
 
+# Allow overriding some variables from the command line
 DEFAULT_GLUON_CHECKOUT := v2016.2.1
-
-# Allow overriding the checkout from the command line
 GLUON_CHECKOUT ?= $(DEFAULT_GLUON_CHECKOUT)
 
 DEFAULT_GLUON_RELEASE := 0.2.99~beta$(shell date '+%Y%m%d')
-
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
-# Default priority for updates.
-GLUON_PRIORITY ?= 0
+DEFAULT_GLUON_PRIORITY = 0
+ifeq ($(GLUON_BRANCH),stable)
+    DEFAULT_GLUON_PRIORITY = 7
+endif
+ifeq ($(GLUON_BRANCH),beta)
+    DEFAULT_GLUON_PRIORITY = 3
+endif
+GLUON_PRIORITY ?= $(DEFAULT_GLUON_PRIORITY)
 
-# Languages to include; e.g. en, fr, de
+
 GLUON_LANGS ?= en de
 
 GLUON_REGION ?= eu
