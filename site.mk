@@ -24,7 +24,7 @@ GLUON_SITE_PACKAGES := \
 	iptables \
 	iwinfo
 
-DEFAULT_GLUON_CHECKOUT := v2016.1.4
+DEFAULT_GLUON_CHECKOUT := v2016.2.1
 
 # Allow overriding the checkout from the command line
 GLUON_CHECKOUT ?= $(DEFAULT_GLUON_CHECKOUT)
@@ -60,7 +60,7 @@ GLUON_SITE_PACKAGES += \
 	kmod-atl2
 endif
 
-DEFAULT_GLUON_RELEASE := 0.2.75~stable$(shell date '+%Y%m%d')
+DEFAULT_GLUON_RELEASE := 0.2.99~beta$(shell date '+%Y%m%d')
 
 #Saved for future use
 # $(shell git --git-dir=$(this_dir)/.git \
@@ -89,3 +89,7 @@ GLUON_PRIORITY ?= 0
 
 # Languages to include
 GLUON_LANGS ?= en de
+
+GLUON_REGION ?= eu
+
+GLUON_ATH10K_MESH ?= 11s
