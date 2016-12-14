@@ -97,7 +97,6 @@ PCI_PACKAGES_NET := \
 	kmod-atl2 \
 	kmod-e100 \
 	kmod-e1000 \
-	kmod-e1000e \
 	kmod-forcedeth \
 	kmod-natsemi \
 	kmod-ne2k-pci \
@@ -155,6 +154,7 @@ ifeq ($(GLUON_TARGET),x86-generic)
 GLUON_SITE_PACKAGES += \
 	kmod-usb-hid \
 	kmod-hid-generic \
+	kmod-e1000e \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
 	$(USB_PACKAGES_NET) \
@@ -167,6 +167,7 @@ ifeq ($(GLUON_TARGET),x86-64)
 GLUON_SITE_PACKAGES += \
 	kmod-usb-hid \
 	kmod-hid-generic \
+	kmod-e1000e \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
 	$(USB_PACKAGES_NET) \
@@ -179,6 +180,7 @@ ifeq ($(GLUON_TARGET),x86-kvm_guest)
 GLUON_SITE_PACKAGES += \
 	kmod-usb-hid \
 	kmod-hid-generic \
+	kmod-e1000e \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
 	$(USB_PACKAGES_NET) \
