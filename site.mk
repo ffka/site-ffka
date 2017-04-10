@@ -20,7 +20,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-mesh-vpn-fastd \
 	gluon-setup-mode \
 	gluon-status-page \
-	gluon-dns-cache \
+    gluon-dns-config \
 	haveged \
 	iptables \
 	iwinfo
