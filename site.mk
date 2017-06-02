@@ -20,7 +20,7 @@ GLUON_SITE_PACKAGES := \
 	gluon-mesh-vpn-fastd \
 	gluon-setup-mode \
 	gluon-status-page \
-    gluon-dns-config \
+    gluon-dns-cache \
 	haveged \
 	iptables \
 	iwinfo
@@ -108,6 +108,7 @@ PCI_PACKAGES_NET := \
 	kmod-sky2 \
 	kmod-tg3 \
 	kmod-tulip \
+	kmod-igb \
 	kmod-via-rhine
 # broken
 #	kmod-ixgbe \
