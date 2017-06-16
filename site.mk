@@ -1,7 +1,6 @@
 GLUON_SITE_PACKAGES := \
 	gluon-mesh-batman-adv-15 \
 	gluon-respondd \
-	gluon-alfred \
 	gluon-autoupdater \
 	gluon-config-mode-core \
 	gluon-config-mode-autoupdater \
@@ -20,7 +19,6 @@ GLUON_SITE_PACKAGES := \
 	gluon-mesh-vpn-fastd \
 	gluon-setup-mode \
 	gluon-status-page \
-    gluon-dns-cache \
 	haveged \
 	iptables \
 	iwinfo
@@ -108,7 +106,7 @@ PCI_PACKAGES_NET := \
 	kmod-sky2 \
 	kmod-tg3 \
 	kmod-tulip \
-	kmod-igb \
+        kmod-igb \
 	kmod-via-rhine
 # broken
 #	kmod-ixgbe \
@@ -223,10 +221,10 @@ GLUON_TLWDR4900_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_P
 
 
 # Allow overriding some variables from the command line
-DEFAULT_GLUON_CHECKOUT := v2017.1
+DEFAULT_GLUON_CHECKOUT := v2016.2.6
 GLUON_CHECKOUT ?= $(DEFAULT_GLUON_CHECKOUT)
 
-DEFAULT_GLUON_RELEASE := 0.2.99~beta$(shell date '+%Y%m%d')
+DEFAULT_GLUON_RELEASE := 0.4.0-beta.1-$(shell date '+%Y%m%d')
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
 DEFAULT_GLUON_PRIORITY = 0
