@@ -1,27 +1,36 @@
+GLUON_MULTIDOMAIN=1
+
+# Featureset, these are either virtual or packages prefixed with "gluon-"
+GLUON_FEATURES := \
+	autoupdater \
+	config-mode-domain-select \
+	ebtables-filter-multicast \
+	ebtables-filter-ra-dhcp \
+	ebtables-limit-arp \
+	ebtables-source-filter \
+	mesh-batman-adv-15 \
+	mesh-vpn-fastd \
+	radvd \
+	radv-filterd \
+	respondd \
+	setup-mode \
+	status-page \
+	web-advanced \
+	web-private-wifi \
+	web-wizard
+
+# Additional packages to install on every image
 GLUON_SITE_PACKAGES := \
-	gluon-mesh-batman-adv-15 \
-	gluon-respondd \
-	gluon-autoupdater \
-	gluon-config-mode-core \
-	gluon-config-mode-autoupdater \
-	gluon-config-mode-contact-info \
-	gluon-config-mode-geo-location \
-	gluon-config-mode-hostname \
-	gluon-config-mode-mesh-vpn \
-	gluon-ebtables-filter-multicast \
-	gluon-ebtables-filter-ra-dhcp \
-	gluon-luci-admin \
-	gluon-luci-autoupdater \
-	gluon-luci-portconfig \
-	gluon-luci-wifi-config \
-	gluon-luci-private-wifi \
-	gluon-next-node \
-	gluon-mesh-vpn-fastd \
-	gluon-setup-mode \
-	gluon-status-page \
+	iwinfo \
 	haveged \
-	iptables \
-	iwinfo
+	respondd-module-airtime \
+	ffda-domain-director \
+	ffka-domain-migrator
+
+# input devices
+USB_PKGS_HID := \
+	kmod-usb-hid \
+	kmod-hid-generic
 
 # basic support for USB stack
 USB_PACKAGES_BASIC := \
@@ -76,8 +85,6 @@ USB_PACKAGES_NET := \
 	kmod-usb-net-rtl8152 \
 	kmod-usb-net-sierrawireless \
 	kmod-usb-net-smsc95xx
-# broken
-#	kmod-usb-net-rtl8150 \
 
 # additional USB network devices (ie Edimax)
 USB_PACKAGES_NET_ADD := \
@@ -106,10 +113,8 @@ PCI_PACKAGES_NET := \
 	kmod-sky2 \
 	kmod-tg3 \
 	kmod-tulip \
-        kmod-igb \
+	kmod-igb \
 	kmod-via-rhine
-# broken
-#	kmod-ixgbe \
 
 # additional packages
 TOOLS_PACKAGES := \
@@ -118,8 +123,6 @@ TOOLS_PACKAGES := \
 	tcpdump \
 	usbutils \
 	vnstat
-# broken
-#	pciutils \
 
 
 #
@@ -129,8 +132,7 @@ TOOLS_PACKAGES := \
 # Raspberry Pi A/B/B+
 ifeq ($(GLUON_TARGET),brcm2708-bcm2708)
 GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
+	$(USB_PKGS_HID) \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
 	$(USB_PACKAGES_NET) \
@@ -141,8 +143,7 @@ endif
 # Raspberry Pi 2
 ifeq ($(GLUON_TARGET),brcm2708-bcm2709)
 GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
+	$(USB_PKGS_HID) \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
 	$(USB_PACKAGES_NET) \
@@ -152,8 +153,7 @@ endif
 
 ifeq ($(GLUON_TARGET),x86-generic)
 GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
+	$(USB_PKGS_HID) \
 	kmod-e1000e \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
@@ -165,8 +165,7 @@ endif
 
 ifeq ($(GLUON_TARGET),x86-64)
 GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
+	$(USB_PKGS_HID) \
 	kmod-e1000e \
 	$(USB_PACKAGES_BASIC) \
 	$(USB_PACKAGES_STORAGE) \
@@ -175,33 +174,6 @@ GLUON_SITE_PACKAGES += \
 	$(TOOLS_PACKAGES) \
 	$(USB_PACKAGES_NET_ADD)
 endif
-
-ifeq ($(GLUON_TARGET),x86-kvm_guest)
-GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
-	kmod-e1000e \
-	$(USB_PACKAGES_BASIC) \
-	$(USB_PACKAGES_STORAGE) \
-	$(USB_PACKAGES_NET) \
-	$(PCI_PACKAGES_NET) \
-	$(TOOLS_PACKAGES) \
-	$(USB_PACKAGES_NET_ADD)
-endif
-
-ifeq ($(GLUON_TARGET),x86-xen_domu)
-GLUON_SITE_PACKAGES += \
-	kmod-usb-hid \
-	kmod-hid-generic \
-	$(USB_PACKAGES_BASIC) \
-	$(USB_PACKAGES_STORAGE) \
-	$(USB_PACKAGES_NET) \
-	$(PCI_PACKAGES_NET) \
-	$(TOOLS_PACKAGES) \
-	$(USB_PACKAGES_NET_ADD)
-endif
-
-
 
 # ar71xx-generic
 GLUON_TLWR842_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_PACKAGES_STORAGE)
@@ -220,25 +192,46 @@ GLUON_DIR505A1_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_PA
 GLUON_TLWDR4900_SITE_PACKAGES := $(USB_PACKAGES_BASIC) $(TOOLS_PACKAGES) $(USB_PACKAGES_STORAGE)
 
 
-# Allow overriding some variables from the command line
-DEFAULT_GLUON_CHECKOUT := v2016.2.6
+#Allow overriding some variables from the command line
+DEFAULT_GLUON_CHECKOUT := master
 GLUON_CHECKOUT ?= $(DEFAULT_GLUON_CHECKOUT)
 
-DEFAULT_GLUON_RELEASE := 0.4.1-beta.0-$(shell date '+%Y%m%d')
+ifndef GLUON_SITEDIR
+	COMMIT_DESCRIPTION := $(shell git describe --tags --long)
+	BUILD_DATESTAMP := $(shell [ -f build_date ] && cat build_date || date '+%Y%m%d')
+else
+	COMMIT_DESCRIPTION := $(shell git -C $(GLUON_SITEDIR) describe --tags --long)
+	BUILD_DATESTAMP := $(shell [ -f $(GLUON_SITEDIR)/build_date ] && cat $(GLUON_SITEDIR)/build_date || date '+%Y%m%d')
+endif
+
+DEFAULT_GLUON_RELEASE := $(shell echo "${COMMIT_DESCRIPTION}" | sed 's/\(.*\)-\(.*\)-\(.*\)-.*/\1-\2.\3/')-${BUILD_DATESTAMP}
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
-DEFAULT_GLUON_PRIORITY = 0
-ifeq ($(GLUON_BRANCH),stable)
-    DEFAULT_GLUON_PRIORITY = 7
+BRANCH_FROM_TAG := $(shell echo "${COMMIT_DESCRIPTION}" | sed 's/\(.*\)-\(.*\)-\(.*\)-.*/\2/')
+ifeq ($(BRANCH_FROM_TAG),beta)
+	DEFAULT_GLUON_BRANCH := beta
+else ifeq ($(BRANCH_FROM_TAG),stable)
+	DEFAULT_GLUON_BRANCH := stable
+else ifeq ($(BRANCH_FROM_TAG),experimental)
+	DEFAULT_GLUON_BRANCH := experimental
 endif
-ifeq ($(GLUON_BRANCH),beta)
-    DEFAULT_GLUON_PRIORITY = 3
+GLUON_BRANCH ?= $(DEFAULT_GLUON_BRANCH)
+
+ifeq ($(GLUON_BRANCH),stable)
+    DEFAULT_GLUON_PRIORITY := 7
+else ifeq ($(GLUON_BRANCH),beta)
+    DEFAULT_GLUON_PRIORITY := 3
+else ifeq ($(GLUON_BRANCH),experimental)
+	DEFAULT_GLUON_PRIORITY := 1
+else
+	DEFAULT_GLUON_PRIORITY := 3
 endif
 GLUON_PRIORITY ?= $(DEFAULT_GLUON_PRIORITY)
-
 
 GLUON_LANGS ?= en de
 
 GLUON_REGION ?= eu
 
 GLUON_ATH10K_MESH ?= 11s
+
+#dump way to trigger a new build
