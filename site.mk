@@ -151,6 +151,17 @@ GLUON_SITE_PACKAGES += \
 	$(USB_PACKAGES_NET_ADD)
 endif
 
+# Raspberry Pi 3
+ifeq ($(GLUON_TARGET),brcm2708-bcm2710)
+GLUON_SITE_PACKAGES += \
+        $(USB_PKGS_HID) \
+        $(USB_PACKAGES_BASIC) \
+        $(USB_PACKAGES_STORAGE) \
+        $(USB_PACKAGES_NET) \
+        $(TOOLS_PACKAGES) \
+        $(USB_PACKAGES_NET_ADD)
+endif
+
 ifeq ($(GLUON_TARGET),x86-generic)
 GLUON_SITE_PACKAGES += \
 	$(USB_PKGS_HID) \
